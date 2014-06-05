@@ -1,0 +1,43 @@
+[main]
+host = https://www.transifex.com
+type = XLIFF
+
+[contao.v3_3-calendar-default]
+source_file = src/languages/en/default.xlf
+source_lang = en
+file_filter = src/languages/<lang>/default.xlf
+
+[contao.v3_3-calendar-modules]
+source_file = src/languages/en/modules.xlf
+source_lang = en
+file_filter = src/languages/<lang>/modules.xlf
+
+[contao.v3_3-calendar-tl_calendar]
+source_file = src/languages/en/tl_calendar.xlf
+source_lang = en
+file_filter = src/languages/<lang>/tl_calendar.xlf
+
+[contao.v3_3-calendar-tl_calendar_events]
+source_file = src/languages/en/tl_calendar_events.xlf
+source_lang = en
+file_filter = src/languages/<lang>/tl_calendar_events.xlf
+
+[contao.v3_3-calendar-tl_calendar_feed]
+source_file = src/languages/en/tl_calendar_feed.xlf
+source_lang = en
+file_filter = src/languages/<lang>/tl_calendar_feed.xlf
+
+[contao.v3_3-calendar-tl_module]
+source_file = src/languages/en/tl_module.xlf
+source_lang = en
+file_filter = src/languages/<lang>/tl_module.xlf
+
+[contao.v3_3-calendar-tl_user]
+source_file = src/languages/en/tl_user.xlf
+source_lang = en
+file_filter = src/languages/<lang>/tl_user.xlf
+
+[contao.v3_3-calendar-tl_user_group]
+source_file = src/languages/en/tl_user_group.xlf
+source_lang = en
+file_filter = src/languages/<lang>/tl_user_group.xlf

@@ -138,18 +138,10 @@ class ModuleEventReader extends \Events
 			}
 		}
 
-		if ($objPage->outputFormat == 'xhtml')
-		{
-			$strTimeStart = '';
-			$strTimeEnd = '';
-			$strTimeClose = '';
-		}
-		else
-		{
-			$strTimeStart = '<time datetime="' . date('Y-m-d\TH:i:sP', $intStartTime) . '">';
-			$strTimeEnd = '<time datetime="' . date('Y-m-d\TH:i:sP', $intEndTime) . '">';
-			$strTimeClose = '</time>';
-		}
+		// Generate the <time> tags
+		$strTimeStart = '<time datetime="' . date('Y-m-d\TH:i:sP', $intStartTime) . '">';
+		$strTimeEnd = '<time datetime="' . date('Y-m-d\TH:i:sP', $intEndTime) . '">';
+		$strTimeClose = '</time>';
 
 		// Get date
 		if ($span > 0)

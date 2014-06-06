@@ -424,14 +424,7 @@ class Calendar extends \Frontend
 		$arrEvent['title'] = $title;
 
 		// Clean the RTE output
-		if ($objPage->outputFormat == 'xhtml')
-		{
-			$arrEvent['teaser'] = \String::toXhtml($objEvent->teaser);
-		}
-		else
-		{
-			$arrEvent['teaser'] = \String::toHtml5($objEvent->teaser);
-		}
+		$arrEvent['teaser'] = \String::toHtml5($objEvent->teaser);
 
 		// Reset the enclosures (see #5685)
 		$arrEvent['enclosure'] = array();

@@ -10,10 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
 
 
@@ -25,7 +21,7 @@ namespace Contao;
  * @author     Leo Feyer <https://contao.org>
  * @package    Calendar
  */
-class ModuleCalendar extends \Events
+class ModuleCalendar extends Events
 {
 
 	/**
@@ -55,7 +51,7 @@ class ModuleCalendar extends \Events
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate = new BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['calendar'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
@@ -74,7 +70,7 @@ class ModuleCalendar extends \Events
 			return '';
 		}
 
-		$this->strUrl = preg_replace('/\?.*$/', '', \Environment::get('request'));
+		$this->strUrl = preg_replace('/\?.*$/', '', Environment::get('request'));
 		$this->strLink = $this->strUrl;
 
 		if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
@@ -92,19 +88,19 @@ class ModuleCalendar extends \Events
 	protected function compile()
 	{
 		// Respond to month
-		if (\Input::get('month'))
+		if (Input::get('month'))
 		{
-			$this->Date = new \Date(\Input::get('month'), 'Ym');
+			$this->Date = new Date(Input::get('month'), 'Ym');
 		}
 		// Respond to day
-		elseif (\Input::get('day'))
+		elseif (Input::get('day'))
 		{
-			$this->Date = new \Date(\Input::get('day'), 'Ymd');
+			$this->Date = new Date(Input::get('day'), 'Ymd');
 		}
 		// Fallback to today
 		else
 		{
-			$this->Date = new \Date();
+			$this->Date = new Date();
 		}
 
 		$time = time();
@@ -113,7 +109,7 @@ class ModuleCalendar extends \Events
 		$objMinMax = $this->Database->query("SELECT MIN(startTime) AS dateFrom, MAX(endTime) AS dateTo, MAX(repeatEnd) AS repeatUntil FROM tl_calendar_events WHERE pid IN(". implode(',', array_map('intval', $this->cal_calendar)) .")" . (!BE_USER_LOGGED_IN ? " AND (start='' OR start<$time) AND (stop='' OR stop>$time) AND published=1" : ""));
 
 		// Instantiate the template
-		$objTemplate = new \FrontendTemplate(($this->cal_ctemplate ? $this->cal_ctemplate : 'cal_default'));
+		$objTemplate = new FrontendTemplate(($this->cal_ctemplate ? $this->cal_ctemplate : 'cal_default'));
 
 		// Store year and month
 		$intYear = date('Y', $this->Date->tstamp);
@@ -130,7 +126,7 @@ class ModuleCalendar extends \Events
 		// Only generate a link if there are events (see #4160)
 		if ($objMinMax->dateFrom !== null && $intPrevYm >= date('Ym', $objMinMax->dateFrom))
 		{
-			$objTemplate->prevHref = $this->strUrl . (\Config::get('disableAlias') ? '?id=' . \Input::get('id') . '&amp;' : '?') . 'month=' . $intPrevYm;
+			$objTemplate->prevHref = $this->strUrl . (Config::get('disableAlias') ? '?id=' . Input::get('id') . '&amp;' : '?') . 'month=' . $intPrevYm;
 			$objTemplate->prevTitle = specialchars($lblPrevious);
 			$objTemplate->prevLink = $GLOBALS['TL_LANG']['MSC']['cal_previous'] . ' ' . $lblPrevious;
 			$objTemplate->prevLabel = $GLOBALS['TL_LANG']['MSC']['cal_previous'];
@@ -148,7 +144,7 @@ class ModuleCalendar extends \Events
 		// Only generate a link if there are events (see #4160)
 		if ($objMinMax->dateTo !== null && $intNextYm <= date('Ym', max($objMinMax->dateTo, $objMinMax->repeatUntil)))
 		{
-			$objTemplate->nextHref = $this->strUrl . (\Config::get('disableAlias') ? '?id=' . \Input::get('id') . '&amp;' : '?') . 'month=' . $intNextYm;
+			$objTemplate->nextHref = $this->strUrl . (Config::get('disableAlias') ? '?id=' . Input::get('id') . '&amp;' : '?') . 'month=' . $intNextYm;
 			$objTemplate->nextTitle = specialchars($lblNext);
 			$objTemplate->nextLink = $lblNext . ' ' . $GLOBALS['TL_LANG']['MSC']['cal_next'];
 			$objTemplate->nextLabel = $GLOBALS['TL_LANG']['MSC']['cal_next'];
@@ -254,7 +250,7 @@ class ModuleCalendar extends \Events
 			$strClass .= ($intKey == date('Ymd')) ? ' today' : '';
 
 			// Mark the selected day (see #1784)
-			if ($intKey == \Input::get('day'))
+			if ($intKey == Input::get('day'))
 			{
 				$strClass .= ' selected';
 			}
@@ -282,7 +278,7 @@ class ModuleCalendar extends \Events
 
 			$arrDays[$strWeekClass][$i]['label'] = $intDay;
 			$arrDays[$strWeekClass][$i]['class'] = 'days active' . $strClass;
-			$arrDays[$strWeekClass][$i]['href'] = $this->strLink . (\Config::get('disableAlias') ? '&amp;' : '?') . 'day=' . $intKey;
+			$arrDays[$strWeekClass][$i]['href'] = $this->strLink . (Config::get('disableAlias') ? '&amp;' : '?') . 'day=' . $intKey;
 			$arrDays[$strWeekClass][$i]['title'] = sprintf(specialchars($GLOBALS['TL_LANG']['MSC']['cal_events']), count($arrEvents));
 			$arrDays[$strWeekClass][$i]['events'] = $arrEvents;
 		}

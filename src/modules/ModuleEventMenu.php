@@ -10,10 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
 
 
@@ -25,7 +21,7 @@ namespace Contao;
  * @author     Leo Feyer <https://contao.org>
  * @package    Calendar
  */
-class ModuleEventMenu extends \ModuleCalendar
+class ModuleEventMenu extends ModuleCalendar
 {
 
 	/**
@@ -36,7 +32,7 @@ class ModuleEventMenu extends \ModuleCalendar
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate = new BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['eventmenu'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
@@ -82,7 +78,7 @@ class ModuleEventMenu extends \ModuleCalendar
 	{
 		$arrData = array();
 
-		$this->Template = new \FrontendTemplate('mod_eventmenu_year');
+		$this->Template = new FrontendTemplate('mod_eventmenu_year');
 		$arrAllEvents = $this->getAllEvents($this->cal_calendar, 0, 2145913200);
 
 		foreach ($arrAllEvents as $intDay=>$arrDay)
@@ -99,7 +95,7 @@ class ModuleEventMenu extends \ModuleCalendar
 		$arrItems = array();
 		$count = 0;
 		$limit = count($arrData);
-		$strUrl = \Environment::get('request');
+		$strUrl = Environment::get('request');
 
 		// Get the current "jumpTo" page
 		if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
@@ -115,10 +111,10 @@ class ModuleEventMenu extends \ModuleCalendar
 
 			$arrItems[$intYear]['date'] = $intDate;
 			$arrItems[$intYear]['link'] = $intYear;
-			$arrItems[$intYear]['href'] = $strUrl . (\Config::get('disableAlias') ? '&amp;' : '?') . 'year=' . $intDate;
+			$arrItems[$intYear]['href'] = $strUrl . (Config::get('disableAlias') ? '&amp;' : '?') . 'year=' . $intDate;
 			$arrItems[$intYear]['title'] = specialchars($intYear . ' (' . $quantity . ')');
 			$arrItems[$intYear]['class'] = trim(((++$count == 1) ? 'first ' : '') . (($count == $limit) ? 'last' : ''));
-			$arrItems[$intYear]['isActive'] = (\Input::get('year') == $intDate);
+			$arrItems[$intYear]['isActive'] = (Input::get('year') == $intDate);
 			$arrItems[$intYear]['quantity'] = $quantity;
 		}
 
@@ -134,7 +130,7 @@ class ModuleEventMenu extends \ModuleCalendar
 	{
 		$arrData = array();
 
-		$this->Template = new \FrontendTemplate('mod_eventmenu');
+		$this->Template = new FrontendTemplate('mod_eventmenu');
 		$arrAllEvents = $this->getAllEvents($this->cal_calendar, 0, 2145913200);
 
 		foreach ($arrAllEvents as $intDay=>$arrDay)
@@ -154,7 +150,7 @@ class ModuleEventMenu extends \ModuleCalendar
 		($this->cal_order == 'ascending') ? ksort($arrData) : krsort($arrData);
 
 		$arrItems = array();
-		$strUrl = \Environment::get('request');
+		$strUrl = Environment::get('request');
 
 		// Get the current "jumpTo" page
 		if ($this->jumpTo && ($objTarget = $this->objModel->getRelated('jumpTo')) !== null)
@@ -177,17 +173,17 @@ class ModuleEventMenu extends \ModuleCalendar
 
 				$arrItems[$intYear][$intMonth]['date'] = $intDate;
 				$arrItems[$intYear][$intMonth]['link'] = $GLOBALS['TL_LANG']['MONTHS'][$intMonth] . ' ' . $intYear;
-				$arrItems[$intYear][$intMonth]['href'] = $strUrl . (\Config::get('disableAlias') ? '&amp;' : '?') . 'month=' . $intDate;
+				$arrItems[$intYear][$intMonth]['href'] = $strUrl . (Config::get('disableAlias') ? '&amp;' : '?') . 'month=' . $intDate;
 				$arrItems[$intYear][$intMonth]['title'] = specialchars($GLOBALS['TL_LANG']['MONTHS'][$intMonth].' '.$intYear . ' (' . $quantity . ')');
 				$arrItems[$intYear][$intMonth]['class'] = trim(((++$count == 1) ? 'first ' : '') . (($count == $limit) ? 'last' : ''));
-				$arrItems[$intYear][$intMonth]['isActive'] = (\Input::get('month') == $intDate);
+				$arrItems[$intYear][$intMonth]['isActive'] = (Input::get('month') == $intDate);
 				$arrItems[$intYear][$intMonth]['quantity'] = $quantity;
 			}
 		}
 
 		$this->Template->items = $arrItems;
 		$this->Template->showQuantity = ($this->cal_showQuantity != '') ? true : false;
-		$this->Template->url = $strUrl . (\Config::get('disableAlias') ? '&amp;' : '?');
-		$this->Template->activeYear = \Input::get('year');
+		$this->Template->url = $strUrl . (Config::get('disableAlias') ? '&amp;' : '?');
+		$this->Template->activeYear = Input::get('year');
 	}
 }

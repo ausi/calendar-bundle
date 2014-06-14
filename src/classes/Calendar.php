@@ -10,11 +10,9 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
+
+use stdClass;
 
 
 /**
@@ -25,7 +23,7 @@ namespace Contao;
  * @author     Leo Feyer <https://contao.org>
  * @package    Calendar
  */
-class Calendar extends \Frontend
+class Calendar extends Frontend
 {
 
 	/**
@@ -42,7 +40,7 @@ class Calendar extends \Frontend
 	 */
 	public function generateFeed($intId, $blnIsFeedId=false)
 	{
-		$objCalendar = $blnIsFeedId ? \CalendarFeedModel::findByPk($intId) : \CalendarFeedModel::findByCalendar($intId);
+		$objCalendar = $blnIsFeedId ? CalendarFeedModel::findByPk($intId) : CalendarFeedModel::findByCalendar($intId);
 
 		if ($objCalendar === null)
 		{
@@ -52,7 +50,7 @@ class Calendar extends \Frontend
 		$objCalendar->feedName = $objCalendar->alias ?: 'calendar' . $objCalendar->id;
 
 		// Delete XML file
-		if (\Input::get('act') == 'delete')
+		if (Input::get('act') == 'delete')
 		{
 			$this->import('Files');
 			$this->Files->delete('share/' . $objCalendar->feedName . '.xml');
@@ -75,7 +73,7 @@ class Calendar extends \Frontend
 		$this->import('Automator');
 		$this->Automator->purgeXmlFiles();
 
-		$objCalendar = \CalendarFeedModel::findAll();
+		$objCalendar = CalendarFeedModel::findAll();
 
 		if ($objCalendar !== null)
 		{
@@ -103,10 +101,10 @@ class Calendar extends \Frontend
 		}
 
 		$strType = ($arrFeed['format'] == 'atom') ? 'generateAtom' : 'generateRss';
-		$strLink = $arrFeed['feedBase'] ?: \Environment::get('base');
+		$strLink = $arrFeed['feedBase'] ?: Environment::get('base');
 		$strFile = $arrFeed['feedName'];
 
-		$objFeed = new \Feed($strFile);
+		$objFeed = new Feed($strFile);
 		$objFeed->link = $strLink;
 		$objFeed->title = $arrFeed['title'];
 		$objFeed->description = $arrFeed['description'];
@@ -118,7 +116,7 @@ class Calendar extends \Frontend
 		$time = time();
 
 		// Get the upcoming events
-		$objArticle = \CalendarEventsModel::findUpcomingByPids($arrCalendars, $arrFeed['maxItems']);
+		$objArticle = CalendarEventsModel::findUpcomingByPids($arrCalendars, $arrFeed['maxItems']);
 
 		// Parse the items
 		if ($objArticle !== null)
@@ -136,7 +134,7 @@ class Calendar extends \Frontend
 				// Get the jumpTo URL
 				if (!isset($arrUrls[$jumpTo]))
 				{
-					$objParent = \PageModel::findWithDetails($jumpTo);
+					$objParent = PageModel::findWithDetails($jumpTo);
 
 					// A jumpTo page is set but does no longer exist (see #5781)
 					if ($objParent === null)
@@ -145,7 +143,7 @@ class Calendar extends \Frontend
 					}
 					else
 					{
-						$arrUrls[$jumpTo] = $this->generateFrontendUrl($objParent->row(), ((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ?  '/%s' : '/events/%s'), $objParent->language);
+						$arrUrls[$jumpTo] = $this->generateFrontendUrl($objParent->row(), ((Config::get('useAutoItem') && !Config::get('disableAlias')) ?  '/%s' : '/events/%s'), $objParent->language);
 					}
 				}
 
@@ -208,7 +206,7 @@ class Calendar extends \Frontend
 						break(3);
 					}
 
-					$objItem = new \FeedItem();
+					$objItem = new FeedItem();
 
 					$objItem->title = $event['title'];
 					$objItem->link = $event['link'];
@@ -221,7 +219,7 @@ class Calendar extends \Frontend
 					if ($arrFeed['source'] == 'source_text')
 					{
 						$strDescription = '';
-						$objElement = \ContentModel::findPublishedByPidAndTable($event['id'], 'tl_calendar_events');
+						$objElement = ContentModel::findPublishedByPidAndTable($event['id'], 'tl_calendar_events');
 
 						if ($objElement !== null)
 						{
@@ -253,7 +251,7 @@ class Calendar extends \Frontend
 		}
 
 		// Create the file
-		\File::putContent('share/' . $strFile . '.xml', $this->replaceInsertTags($objFeed->$strType(), false));
+		File::putContent('share/' . $strFile . '.xml', $this->replaceInsertTags($objFeed->$strType(), false));
 	}
 
 
@@ -277,7 +275,7 @@ class Calendar extends \Frontend
 		$arrProcessed = array();
 
 		// Get all calendars
-		$objCalendar = \CalendarModel::findByProtected('');
+		$objCalendar = CalendarModel::findByProtected('');
 
 		// Walk through each calendar
 		if ($objCalendar !== null)
@@ -299,7 +297,7 @@ class Calendar extends \Frontend
 				// Get the URL of the jumpTo page
 				if (!isset($arrProcessed[$objCalendar->jumpTo]))
 				{
-					$objParent = \PageModel::findWithDetails($objCalendar->jumpTo);
+					$objParent = PageModel::findWithDetails($objCalendar->jumpTo);
 
 					// The target page does not exist
 					if ($objParent === null)
@@ -320,22 +318,22 @@ class Calendar extends \Frontend
 					}
 
 					// Set the domain (see #6421)
-					$domain = ($objParent->rootUseSSL ? 'https://' : 'http://') . ($objParent->domain ?: \Environment::get('host')) . TL_PATH . '/';
+					$domain = ($objParent->rootUseSSL ? 'https://' : 'http://') . ($objParent->domain ?: Environment::get('host')) . TL_PATH . '/';
 
 					// Generate the URL
-					$arrProcessed[$objCalendar->jumpTo] = $domain . $this->generateFrontendUrl($objParent->row(), ((\Config::get('useAutoItem') && !\Config::get('disableAlias')) ?  '/%s' : '/events/%s'), $objParent->language);
+					$arrProcessed[$objCalendar->jumpTo] = $domain . $this->generateFrontendUrl($objParent->row(), ((Config::get('useAutoItem') && !Config::get('disableAlias')) ?  '/%s' : '/events/%s'), $objParent->language);
 				}
 
 				$strUrl = $arrProcessed[$objCalendar->jumpTo];
 
 				// Get the items
-				$objEvents = \CalendarEventsModel::findPublishedDefaultByPid($objCalendar->id);
+				$objEvents = CalendarEventsModel::findPublishedDefaultByPid($objCalendar->id);
 
 				if ($objEvents !== null)
 				{
 					while ($objEvents->next())
 					{
-						$arrPages[] = sprintf($strUrl, (($objEvents->alias != '' && !\Config::get('disableAlias')) ? $objEvents->alias : $objEvents->id));
+						$arrPages[] = sprintf($strUrl, (($objEvents->alias != '' && !Config::get('disableAlias')) ? $objEvents->alias : $objEvents->id));
 					}
 				}
 			}
@@ -365,10 +363,10 @@ class Calendar extends \Frontend
 		// Called in the back end (see #4026)
 		if ($objPage === null)
 		{
-			$objPage = new \stdClass();
-			$objPage->dateFormat = \Config::get('dateFormat');
-			$objPage->datimFormat = \Config::get('datimFormat');
-			$objPage->timeFormat = \Config::get('timeFormat');
+			$objPage = new stdClass();
+			$objPage->dateFormat = Config::get('dateFormat');
+			$objPage->datimFormat = Config::get('datimFormat');
+			$objPage->timeFormat = Config::get('timeFormat');
 		}
 
 		$intKey = date('Ymd', $intStart);
@@ -378,11 +376,11 @@ class Calendar extends \Frontend
 		// Add date
 		if ($span > 0)
 		{
-			$title = \Date::parse($objPage->$format, $intStart) . ' - ' . \Date::parse($objPage->$format, $intEnd);
+			$title = Date::parse($objPage->$format, $intStart) . ' - ' . Date::parse($objPage->$format, $intEnd);
 		}
 		else
 		{
-			$title = \Date::parse($objPage->dateFormat, $intStart) . ($objEvent->addTime ? ' (' . \Date::parse($objPage->timeFormat, $intStart) . (($intStart < $intEnd) ? ' - ' . \Date::parse($objPage->timeFormat, $intEnd) : '') . ')' : '');
+			$title = Date::parse($objPage->dateFormat, $intStart) . ($objEvent->addTime ? ' (' . Date::parse($objPage->timeFormat, $intStart) . (($intStart < $intEnd) ? ' - ' . Date::parse($objPage->timeFormat, $intEnd) : '') . ')' : '');
 		}
 
 		// Add title and link
@@ -403,9 +401,9 @@ class Calendar extends \Frontend
 				break;
 
 			case 'article':
-				if (($objArticle = \ArticleModel::findByPk($objEvent->articleId, array('eager'=>true))) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
+				if (($objArticle = ArticleModel::findByPk($objEvent->articleId, array('eager'=>true))) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
 				{
-					$link = $strBase . ampersand($this->generateFrontendUrl($objPid->row(), '/articles/' . ((!\Config::get('disableAlias') && $objArticle->alias != '') ? $objArticle->alias : $objArticle->id)));
+					$link = $strBase . ampersand($this->generateFrontendUrl($objPid->row(), '/articles/' . ((!Config::get('disableAlias') && $objArticle->alias != '') ? $objArticle->alias : $objArticle->id)));
 				}
 				break;
 		}
@@ -413,7 +411,7 @@ class Calendar extends \Frontend
 		// Link to the default page
 		if ($link == '')
 		{
-			$link = $strBase . sprintf($strUrl, (($objEvent->alias != '' && !\Config::get('disableAlias')) ? $objEvent->alias : $objEvent->id));
+			$link = $strBase . sprintf($strUrl, (($objEvent->alias != '' && !Config::get('disableAlias')) ? $objEvent->alias : $objEvent->id));
 		}
 
 		// Store the whole row (see #5085)
@@ -424,7 +422,7 @@ class Calendar extends \Frontend
 		$arrEvent['title'] = $title;
 
 		// Clean the RTE output
-		$arrEvent['teaser'] = \String::toHtml5($objEvent->teaser);
+		$arrEvent['teaser'] = String::toHtml5($objEvent->teaser);
 
 		// Reset the enclosures (see #5685)
 		$arrEvent['enclosure'] = array();
@@ -432,7 +430,7 @@ class Calendar extends \Frontend
 		// Add the article image as enclosure
 		if ($objEvent->addImage)
 		{
-			$objFile = \FilesModel::findByUuid($objEvent->singleSRC);
+			$objFile = FilesModel::findByUuid($objEvent->singleSRC);
 
 			if ($objFile !== null)
 			{
@@ -447,7 +445,7 @@ class Calendar extends \Frontend
 
 			if (is_array($arrEnclosure))
 			{
-				$objFile = \FilesModel::findMultipleByUuids($arrEnclosure);
+				$objFile = FilesModel::findMultipleByUuids($arrEnclosure);
 
 				if ($objFile !== null)
 				{
@@ -514,7 +512,7 @@ class Calendar extends \Frontend
 	public function purgeOldFeeds()
 	{
 		$arrFeeds = array();
-		$objFeeds = \CalendarFeedModel::findAll();
+		$objFeeds = CalendarFeedModel::findAll();
 
 		if ($objFeeds !== null)
 		{

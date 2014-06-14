@@ -10,11 +10,9 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
+
+use stdClass;
 
 
 /**
@@ -25,7 +23,7 @@ namespace Contao;
  * @author     Leo Feyer <https://contao.org>
  * @package    Calendar
  */
-class ModuleEventReader extends \Events
+class ModuleEventReader extends Events
 {
 
 	/**
@@ -43,7 +41,7 @@ class ModuleEventReader extends \Events
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate = new BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### ' . utf8_strtoupper($GLOBALS['TL_LANG']['FMD']['eventreader'][0]) . ' ###';
 			$objTemplate->title = $this->headline;
@@ -55,13 +53,13 @@ class ModuleEventReader extends \Events
 		}
 
 		// Set the item from the auto_item parameter
-		if (!isset($_GET['events']) && \Config::get('useAutoItem') && isset($_GET['auto_item']))
+		if (!isset($_GET['events']) && Config::get('useAutoItem') && isset($_GET['auto_item']))
 		{
-			\Input::setGet('events', \Input::get('auto_item'));
+			Input::setGet('events', Input::get('auto_item'));
 		}
 
 		// Do not index or cache the page if no event has been specified
-		if (!\Input::get('events'))
+		if (!Input::get('events'))
 		{
 			global $objPage;
 			$objPage->noSearch = 1;
@@ -96,7 +94,7 @@ class ModuleEventReader extends \Events
 		$this->Template->back = $GLOBALS['TL_LANG']['MSC']['goBack'];
 
 		// Get the current event
-		$objEvent = \CalendarEventsModel::findPublishedByParentAndIdOrAlias(\Input::get('events'), $this->cal_calendar);
+		$objEvent = CalendarEventsModel::findPublishedByParentAndIdOrAlias(Input::get('events'), $this->cal_calendar);
 
 		if ($objEvent === null)
 		{
@@ -106,7 +104,7 @@ class ModuleEventReader extends \Events
 
 			// Send a 404 header
 			header('HTTP/1.1 404 Not Found');
-			$this->Template->event = '<p class="error">' . sprintf($GLOBALS['TL_LANG']['MSC']['invalidPage'], \Input::get('events')) . '</p>';
+			$this->Template->event = '<p class="error">' . sprintf($GLOBALS['TL_LANG']['MSC']['invalidPage'], Input::get('events')) . '</p>';
 			return;
 		}
 
@@ -124,7 +122,7 @@ class ModuleEventReader extends \Events
 
 		$intStartTime = $objEvent->startTime;
 		$intEndTime = $objEvent->endTime;
-		$span = \Calendar::calculateSpan($intStartTime, $intEndTime);
+		$span = Calendar::calculateSpan($intStartTime, $intEndTime);
 
 		// Do not show dates in the past if the event is recurring (see #923)
 		if ($objEvent->recurring)
@@ -146,15 +144,15 @@ class ModuleEventReader extends \Events
 		// Get date
 		if ($span > 0)
 		{
-			$date = $strTimeStart . \Date::parse(($objEvent->addTime ? $objPage->datimFormat : $objPage->dateFormat), $intStartTime) . $strTimeClose . ' - ' . $strTimeEnd . \Date::parse(($objEvent->addTime ? $objPage->datimFormat : $objPage->dateFormat), $intEndTime) . $strTimeClose;
+			$date = $strTimeStart . Date::parse(($objEvent->addTime ? $objPage->datimFormat : $objPage->dateFormat), $intStartTime) . $strTimeClose . ' - ' . $strTimeEnd . Date::parse(($objEvent->addTime ? $objPage->datimFormat : $objPage->dateFormat), $intEndTime) . $strTimeClose;
 		}
 		elseif ($intStartTime == $intEndTime)
 		{
-			$date = $strTimeStart . \Date::parse($objPage->dateFormat, $intStartTime) . ($objEvent->addTime ? ' (' . \Date::parse($objPage->timeFormat, $intStartTime) . ')' : '') . $strTimeClose;
+			$date = $strTimeStart . Date::parse($objPage->dateFormat, $intStartTime) . ($objEvent->addTime ? ' (' . Date::parse($objPage->timeFormat, $intStartTime) . ')' : '') . $strTimeClose;
 		}
 		else
 		{
-			$date = $strTimeStart . \Date::parse($objPage->dateFormat, $intStartTime) . ($objEvent->addTime ? ' (' . \Date::parse($objPage->timeFormat, $intStartTime) . $strTimeClose . ' - ' . $strTimeEnd . \Date::parse($objPage->timeFormat, $intEndTime) . ')' : '') . $strTimeClose;
+			$date = $strTimeStart . Date::parse($objPage->dateFormat, $intStartTime) . ($objEvent->addTime ? ' (' . Date::parse($objPage->timeFormat, $intStartTime) . $strTimeClose . ' - ' . $strTimeEnd . Date::parse($objPage->timeFormat, $intEndTime) . ')' : '') . $strTimeClose;
 		}
 
 		$until = '';
@@ -169,7 +167,7 @@ class ModuleEventReader extends \Events
 
 			if ($objEvent->recurrences > 0)
 			{
-				$until = sprintf($GLOBALS['TL_LANG']['MSC']['cal_until'], \Date::parse($objPage->dateFormat, $objEvent->repeatEnd));
+				$until = sprintf($GLOBALS['TL_LANG']['MSC']['cal_until'], Date::parse($objPage->dateFormat, $objEvent->repeatEnd));
 			}
 		}
 
@@ -184,7 +182,7 @@ class ModuleEventReader extends \Events
 			}
 		}
 
-		$objTemplate = new \FrontendTemplate($this->cal_template);
+		$objTemplate = new FrontendTemplate($this->cal_template);
 		$objTemplate->setData($objEvent->row());
 
 		$objTemplate->date = $date;
@@ -196,7 +194,7 @@ class ModuleEventReader extends \Events
 		$objTemplate->locationLabel = $GLOBALS['TL_LANG']['MSC']['location'];
 
 		$objTemplate->details = '';
-		$objElement = \ContentModel::findPublishedByPidAndTable($objEvent->id, 'tl_calendar_events');
+		$objElement = ContentModel::findPublishedByPidAndTable($objEvent->id, 'tl_calendar_events');
 
 		if ($objElement !== null)
 		{
@@ -211,11 +209,11 @@ class ModuleEventReader extends \Events
 		// Add an image
 		if ($objEvent->addImage && $objEvent->singleSRC != '')
 		{
-			$objModel = \FilesModel::findByUuid($objEvent->singleSRC);
+			$objModel = FilesModel::findByUuid($objEvent->singleSRC);
 
 			if ($objModel === null)
 			{
-				if (!\Validator::isUuid($objEvent->singleSRC))
+				if (!Validator::isUuid($objEvent->singleSRC))
 				{
 					$objTemplate->text = '<p class="error">'.$GLOBALS['TL_LANG']['ERR']['version2format'].'</p>';
 				}
@@ -241,7 +239,7 @@ class ModuleEventReader extends \Events
 		$this->Template->event = $objTemplate->parse();
 
 		// HOOK: comments extension required
-		if ($objEvent->noComments || !in_array('comments', \ModuleLoader::getActive()))
+		if ($objEvent->noComments || !in_array('comments', ModuleLoader::getActive()))
 		{
 			$this->Template->allowComments = false;
 			return;
@@ -278,7 +276,7 @@ class ModuleEventReader extends \Events
 			}
 		}
 
-		$objConfig = new \stdClass();
+		$objConfig = new stdClass();
 
 		$objConfig->perPage = $objCalendar->perPage;
 		$objConfig->order = $objCalendar->sortOrder;

@@ -17,7 +17,7 @@
 if (Input::get('do') == 'calendar')
 {
 	$GLOBALS['TL_DCA']['tl_content']['config']['ptable'] = 'tl_calendar_events';
-	$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('tl_content_calendar', 'checkPermission');
+	$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = ['tl_content_calendar', 'checkPermission'];
 }
 
 
@@ -55,7 +55,7 @@ class tl_content_calendar extends Backend
 		// Set the root IDs
 		if (!is_array($this->User->calendars) || empty($this->User->calendars))
 		{
-			$root = array(0);
+			$root = [0];
 		}
 		else
 		{

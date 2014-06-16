@@ -40,10 +40,10 @@ class CalendarFeedModel extends Model
 	 *
 	 * @return Model|null The model or null if the calendar is not part of a feed
 	 */
-	public static function findByCalendar($intId, array $arrOptions=array())
+	public static function findByCalendar($intId, array $arrOptions=[])
 	{
 		$t = static::$strTable;
-		return static::findOneBy(array("$t.calendars LIKE '%\"" . intval($intId) . "\"%'"), null, $arrOptions);
+		return static::findOneBy(["$t.calendars LIKE '%\"" . intval($intId) . "\"%'"], null, $arrOptions);
 	}
 
 
@@ -55,7 +55,7 @@ class CalendarFeedModel extends Model
 	 *
 	 * @return Collection|null A collection of models or null if there are no feeds
 	 */
-	public static function findByIds($arrIds, array $arrOptions=array())
+	public static function findByIds($arrIds, array $arrOptions=[])
 	{
 		if (!is_array($arrIds) || empty($arrIds))
 		{
@@ -63,6 +63,6 @@ class CalendarFeedModel extends Model
 		}
 
 		$t = static::$strTable;
-		return static::findBy(array("$t.id IN(" . implode(',', array_map('intval', $arrIds)) . ")"), null, $arrOptions);
+		return static::findBy(["$t.id IN(" . implode(',', array_map('intval', $arrIds)) . ")"], null, $arrOptions);
 	}
 }

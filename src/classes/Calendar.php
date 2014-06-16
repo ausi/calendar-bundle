@@ -30,7 +30,7 @@ class Calendar extends Frontend
 	 * Current events
 	 * @var array
 	 */
-	protected $arrEvents = array();
+	protected $arrEvents = [];
 
 
 	/**
@@ -111,8 +111,8 @@ class Calendar extends Frontend
 		$objFeed->language = $arrFeed['language'];
 		$objFeed->published = $arrFeed['tstamp'];
 
-		$arrUrls = array();
-		$this->arrEvents = array();
+		$arrUrls = [];
+		$this->arrEvents = [];
 		$time = time();
 
 		// Get the upcoming events
@@ -264,7 +264,7 @@ class Calendar extends Frontend
 	 */
 	public function getSearchablePages($arrPages, $intRoot=0, $blnIsSitemap=false)
 	{
-		$arrRoot = array();
+		$arrRoot = [];
 
 		if ($intRoot > 0)
 		{
@@ -272,7 +272,7 @@ class Calendar extends Frontend
 		}
 
 		$time = time();
-		$arrProcessed = array();
+		$arrProcessed = [];
 
 		// Get all calendars
 		$objCalendar = CalendarModel::findByProtected('');
@@ -401,7 +401,7 @@ class Calendar extends Frontend
 				break;
 
 			case 'article':
-				if (($objArticle = ArticleModel::findByPk($objEvent->articleId, array('eager'=>true))) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
+				if (($objArticle = ArticleModel::findByPk($objEvent->articleId, ['eager'=>true])) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
 				{
 					$link = $strBase . ampersand($this->generateFrontendUrl($objPid->row(), '/articles/' . ((!Config::get('disableAlias') && $objArticle->alias != '') ? $objArticle->alias : $objArticle->id)));
 				}
@@ -425,7 +425,7 @@ class Calendar extends Frontend
 		$arrEvent['teaser'] = String::toHtml5($objEvent->teaser);
 
 		// Reset the enclosures (see #5685)
-		$arrEvent['enclosure'] = array();
+		$arrEvent['enclosure'] = [];
 
 		// Add the article image as enclosure
 		if ($objEvent->addImage)
@@ -511,7 +511,7 @@ class Calendar extends Frontend
 	 */
 	public function purgeOldFeeds()
 	{
-		$arrFeeds = array();
+		$arrFeeds = [];
 		$objFeeds = CalendarFeedModel::findAll();
 
 		if ($objFeeds !== null)

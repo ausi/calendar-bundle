@@ -46,7 +46,7 @@ abstract class Events extends Module
 	 * Current events
 	 * @var array
 	 */
-	protected $arrEvents = array();
+	protected $arrEvents = [];
 
 
 	/**
@@ -63,7 +63,7 @@ abstract class Events extends Module
 
 		$this->import('FrontendUser', 'User');
 		$objCalendar = CalendarModel::findMultipleByIds($arrCalendars);
-		$arrCalendars = array();
+		$arrCalendars = [];
 
 		if ($objCalendar !== null)
 		{
@@ -103,10 +103,10 @@ abstract class Events extends Module
 	{
 		if (!is_array($arrCalendars))
 		{
-			return array();
+			return [];
 		}
 
-		$this->arrEvents = array();
+		$this->arrEvents = [];
 
 		foreach ($arrCalendars as $id)
 		{
@@ -364,7 +364,7 @@ abstract class Events extends Module
 
 			// Link to an article
 			case 'article':
-				if (($objArticle = ArticleModel::findByPk($objEvent->articleId, array('eager'=>true))) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
+				if (($objArticle = ArticleModel::findByPk($objEvent->articleId, ['eager'=>true])) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
 				{
 					return ampersand($this->generateFrontendUrl($objPid->row(), '/articles/' . ((!Config::get('disableAlias') && $objArticle->alias != '') ? $objArticle->alias : $objArticle->id)));
 				}
@@ -387,125 +387,125 @@ abstract class Events extends Module
 		switch ($strFormat)
 		{
 			case 'cal_day':
-				return array($objDate->dayBegin, $objDate->dayEnd, $GLOBALS['TL_LANG']['MSC']['cal_emptyDay']);
+				return [$objDate->dayBegin, $objDate->dayEnd, $GLOBALS['TL_LANG']['MSC']['cal_emptyDay']];
 				break;
 
 			default:
 			case 'cal_month':
-				return array($objDate->monthBegin, $objDate->monthEnd, $GLOBALS['TL_LANG']['MSC']['cal_emptyMonth']);
+				return [$objDate->monthBegin, $objDate->monthEnd, $GLOBALS['TL_LANG']['MSC']['cal_emptyMonth']];
 				break;
 
 			case 'cal_year':
-				return array($objDate->yearBegin, $objDate->yearEnd, $GLOBALS['TL_LANG']['MSC']['cal_emptyYear']);
+				return [$objDate->yearBegin, $objDate->yearEnd, $GLOBALS['TL_LANG']['MSC']['cal_emptyYear']];
 				break;
 
 			case 'cal_all': // 1970-01-01 00:00:00 - 2038-01-01 00:00:00
-				return array(0, 2145913200, $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [0, 2145913200, $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_7':
-				return array(time(), (strtotime('+7 days') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+7 days') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_14':
-				return array(time(), (strtotime('+14 days') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+14 days') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_30':
-				return array(time(), (strtotime('+1 month') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+1 month') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_90':
-				return array(time(), (strtotime('+3 months') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+3 months') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_180':
-				return array(time(), (strtotime('+6 months') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+6 months') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_365':
-				return array(time(), (strtotime('+1 year') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+1 year') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_two':
-				return array(time(), (strtotime('+2 years') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), (strtotime('+2 years') - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_cur_month':
 				$objToday = new Date();
-				return array(time(), $objToday->monthEnd, $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), $objToday->monthEnd, $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_cur_year':
 				$objToday = new Date();
-				return array(time(), $objToday->yearEnd, $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), $objToday->yearEnd, $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_next_month':
 				$objToday = new Date();
-				return array(($objToday->monthEnd + 1), strtotime('+1 month', $objToday->monthEnd), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [($objToday->monthEnd + 1), strtotime('+1 month', $objToday->monthEnd), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_next_year':
 				$objToday = new Date();
-				return array(($objToday->yearEnd + 1), strtotime('+1 year', $objToday->yearEnd), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [($objToday->yearEnd + 1), strtotime('+1 year', $objToday->yearEnd), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'next_all': // 2038-01-01 00:00:00
-				return array(time(), 2145913200, $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [time(), 2145913200, $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_7':
-				return array(strtotime('-7 days'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-7 days'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_14':
-				return array(strtotime('-14 days'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-14 days'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_30':
-				return array(strtotime('-1 month'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-1 month'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_90':
-				return array(strtotime('-3 months'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-3 months'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_180':
-				return array(strtotime('-6 months'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-6 months'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_365':
-				return array(strtotime('-1 year'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-1 year'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_two':
-				return array(strtotime('-2 years'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-2 years'), (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_cur_month':
 				$objToday = new Date();
-				return array($objToday->monthBegin, (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [$objToday->monthBegin, (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_cur_year':
 				$objToday = new Date();
-				return array($objToday->yearBegin, (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [$objToday->yearBegin, (time() - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_prev_month':
 				$objToday = new Date();
-				return array(strtotime('-1 month', $objToday->monthBegin), ($objToday->monthBegin - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-1 month', $objToday->monthBegin), ($objToday->monthBegin - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_prev_year':
 				$objToday = new Date();
-				return array(strtotime('-1 year', $objToday->yearBegin), ($objToday->yearBegin - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [strtotime('-1 year', $objToday->yearBegin), ($objToday->yearBegin - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 
 			case 'past_all': // 1970-01-01 00:00:00
 				$objToday = new Date();
-				return array(0, ($objToday->dayBegin - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']);
+				return [0, ($objToday->dayBegin - 1), $GLOBALS['TL_LANG']['MSC']['cal_empty']];
 				break;
 		}
 	}

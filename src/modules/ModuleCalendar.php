@@ -170,7 +170,7 @@ class ModuleCalendar extends Events
 	 */
 	protected function compileDays()
 	{
-		$arrDays = array();
+		$arrDays = [];
 
 		for ($i=0; $i<7; $i++)
 		{
@@ -191,11 +191,11 @@ class ModuleCalendar extends Events
 				$strClass .= ' weekend';
 			}
 
-			$arrDays[$intCurrentDay] = array
-			(
+			$arrDays[$intCurrentDay] =
+			[
 				'class' => $strClass,
 				'name' => $GLOBALS['TL_LANG']['DAYS'][$intCurrentDay]
-			);
+			];
 		}
 
 		return $arrDays;
@@ -219,7 +219,7 @@ class ModuleCalendar extends Events
 		$intColumnCount = -1;
 		$intNumberOfRows = ceil(($intDaysInMonth + $intFirstDayOffset) / 7);
 		$arrAllEvents = $this->getAllEvents($this->cal_calendar, $this->Date->monthBegin, $this->Date->monthEnd);
-		$arrDays = array();
+		$arrDays = [];
 
 		// Compile days
 		for ($i=1; $i<=($intNumberOfRows * 7); $i++)
@@ -241,7 +241,7 @@ class ModuleCalendar extends Events
 			{
 				$arrDays[$strWeekClass][$i]['label'] = '&nbsp;';
 				$arrDays[$strWeekClass][$i]['class'] = 'days empty' . $strClass ;
-				$arrDays[$strWeekClass][$i]['events'] = array();
+				$arrDays[$strWeekClass][$i]['events'] = [];
 
 				continue;
 			}
@@ -260,12 +260,12 @@ class ModuleCalendar extends Events
 			{
 				$arrDays[$strWeekClass][$i]['label'] = $intDay;
 				$arrDays[$strWeekClass][$i]['class'] = 'days' . $strClass;
-				$arrDays[$strWeekClass][$i]['events'] = array();
+				$arrDays[$strWeekClass][$i]['events'] = [];
 
 				continue;
 			}
 
-			$arrEvents = array();
+			$arrEvents = [];
 
 			// Get all events of a day
 			foreach ($arrAllEvents[$intKey] as $v)

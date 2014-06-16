@@ -14,241 +14,241 @@
 /**
  * Table tl_calendar
  */
-$GLOBALS['TL_DCA']['tl_calendar'] = array
-(
+$GLOBALS['TL_DCA']['tl_calendar'] =
+[
 
 	// Config
-	'config' => array
-	(
+	'config' =>
+	[
 		'dataContainer'               => 'Table',
-		'ctable'                      => array('tl_calendar_events'),
+		'ctable'                      => ['tl_calendar_events'],
 		'switchToEdit'                => true,
 		'enableVersioning'            => true,
-		'onload_callback' => array
-		(
-			array('tl_calendar', 'checkPermission'),
-			array('tl_calendar', 'generateFeed')
-		),
-		'onsubmit_callback' => array
-		(
-			array('tl_calendar', 'scheduleUpdate')
-		),
-		'sql' => array
-		(
-			'keys' => array
-			(
+		'onload_callback' =>
+		[
+			['tl_calendar', 'checkPermission'],
+			['tl_calendar', 'generateFeed']
+		],
+		'onsubmit_callback' =>
+		[
+			['tl_calendar', 'scheduleUpdate']
+		],
+		'sql' =>
+		[
+			'keys' =>
+			[
 				'id' => 'primary'
-			)
-		)
-	),
+			]
+		]
+	],
 
 	// List
-	'list' => array
-	(
-		'sorting' => array
-		(
+	'list' =>
+	[
+		'sorting' =>
+		[
 			'mode'                    => 1,
-			'fields'                  => array('title'),
+			'fields'                  => ['title'],
 			'flag'                    => 1,
 			'panelLayout'             => 'filter;search,limit'
-		),
-		'label' => array
-		(
-			'fields'                  => array('title'),
+		],
+		'label' =>
+		[
+			'fields'                  => ['title'],
 			'format'                  => '%s'
-		),
-		'global_operations' => array
-		(
-			'feeds' => array
-			(
+		],
+		'global_operations' =>
+		[
+			'feeds' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar']['feeds'],
 				'href'                => 'table=tl_calendar_feed',
 				'class'               => 'header_rss',
 				'attributes'          => 'onclick="Backend.getScrollOffset()"',
-				'button_callback'     => array('tl_calendar', 'manageFeeds')
-			),
-			'all' => array
-			(
+				'button_callback'     => ['tl_calendar', 'manageFeeds']
+			],
+			'all' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
 				'href'                => 'act=select',
 				'class'               => 'header_edit_all',
 				'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="e"'
-			)
-		),
-		'operations' => array
-		(
-			'edit' => array
-			(
+			]
+		],
+		'operations' =>
+		[
+			'edit' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar']['edit'],
 				'href'                => 'table=tl_calendar_events',
 				'icon'                => 'edit.gif'
-			),
-			'editheader' => array
-			(
+			],
+			'editheader' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar']['editheader'],
 				'href'                => 'act=edit',
 				'icon'                => 'header.gif',
-				'button_callback'     => array('tl_calendar', 'editHeader')
-			),
-			'copy' => array
-			(
+				'button_callback'     => ['tl_calendar', 'editHeader']
+			],
+			'copy' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar']['copy'],
 				'href'                => 'act=copy',
 				'icon'                => 'copy.gif',
-				'button_callback'     => array('tl_calendar', 'copyCalendar')
-			),
-			'delete' => array
-			(
+				'button_callback'     => ['tl_calendar', 'copyCalendar']
+			],
+			'delete' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
-				'button_callback'     => array('tl_calendar', 'deleteCalendar')
-			),
-			'show' => array
-			(
+				'button_callback'     => ['tl_calendar', 'deleteCalendar']
+			],
+			'show' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar']['show'],
 				'href'                => 'act=show',
 				'icon'                => 'show.gif'
-			)
-		)
-	),
+			]
+		]
+	],
 
 	// Palettes
-	'palettes' => array
-	(
-		'__selector__'                => array('protected', 'allowComments'),
+	'palettes' =>
+	[
+		'__selector__'                => ['protected', 'allowComments'],
 		'default'                     => '{title_legend},title,jumpTo;{protected_legend:hide},protected;{comments_legend:hide},allowComments'
-	),
+	],
 
 	// Subpalettes
-	'subpalettes' => array
-	(
+	'subpalettes' =>
+	[
 		'protected'                   => 'groups',
 		'allowComments'               => 'notify,sortOrder,perPage,moderate,bbcode,requireLogin,disableCaptcha'
-	),
+	],
 
 	// Fields
-	'fields' => array
-	(
-		'id' => array
-		(
+	'fields' =>
+	[
+		'id' =>
+		[
 			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
-		),
-		'tstamp' => array
-		(
+		],
+		'tstamp' =>
+		[
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
-		),
-		'title' => array
-		(
+		],
+		'title' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['title'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255),
+			'eval'                    => ['mandatory'=>true, 'maxlength'=>255],
 			'sql'                     => "varchar(255) NOT NULL default ''"
-		),
-		'jumpTo' => array
-		(
+		],
+		'jumpTo' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['jumpTo'],
 			'exclude'                 => true,
 			'inputType'               => 'pageTree',
 			'foreignKey'              => 'tl_page.title',
-			'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio'),
+			'eval'                    => ['mandatory'=>true, 'fieldType'=>'radio'],
 			'sql'                     => "int(10) unsigned NOT NULL default '0'",
-			'relation'                => array('type'=>'hasOne', 'load'=>'eager')
-		),
-		'protected' => array
-		(
+			'relation'                => ['type'=>'hasOne', 'load'=>'eager']
+		],
+		'protected' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['protected'],
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true),
+			'eval'                    => ['submitOnChange'=>true],
 			'sql'                     => "char(1) NOT NULL default ''"
-		),
-		'groups' => array
-		(
+		],
+		'groups' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['groups'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'foreignKey'              => 'tl_member_group.name',
-			'eval'                    => array('mandatory'=>true, 'multiple'=>true),
+			'eval'                    => ['mandatory'=>true, 'multiple'=>true],
 			'sql'                     => "blob NULL",
-			'relation'                => array('type'=>'hasMany', 'load'=>'lazy')
-		),
-		'allowComments' => array
-		(
+			'relation'                => ['type'=>'hasMany', 'load'=>'lazy']
+		],
+		'allowComments' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['allowComments'],
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true),
+			'eval'                    => ['submitOnChange'=>true],
 			'sql'                     => "char(1) NOT NULL default ''"
-		),
-		'notify' => array
-		(
+		],
+		'notify' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['notify'],
 			'default'                 => 'notify_admin',
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'                 => array('notify_admin', 'notify_author', 'notify_both'),
+			'options'                 => ['notify_admin', 'notify_author', 'notify_both'],
 			'reference'               => &$GLOBALS['TL_LANG']['tl_calendar'],
 			'sql'                     => "varchar(32) NOT NULL default ''"
-		),
-		'sortOrder' => array
-		(
+		],
+		'sortOrder' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['sortOrder'],
 			'default'                 => 'ascending',
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'                 => array('ascending', 'descending'),
+			'options'                 => ['ascending', 'descending'],
 			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-			'eval'                    => array('tl_class'=>'w50'),
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "varchar(32) NOT NULL default ''"
-		),
-		'perPage' => array
-		(
+		],
+		'perPage' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['perPage'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+			'eval'                    => ['rgxp'=>'digit', 'tl_class'=>'w50'],
 			'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
-		),
-		'moderate' => array
-		(
+		],
+		'moderate' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['moderate'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('tl_class'=>'w50'),
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "char(1) NOT NULL default ''"
-		),
-		'bbcode' => array
-		(
+		],
+		'bbcode' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['bbcode'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('tl_class'=>'w50'),
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "char(1) NOT NULL default ''"
-		),
-		'requireLogin' => array
-		(
+		],
+		'requireLogin' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['requireLogin'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('tl_class'=>'w50'),
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "char(1) NOT NULL default ''"
-		),
-		'disableCaptcha' => array
-		(
+		],
+		'disableCaptcha' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['disableCaptcha'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('tl_class'=>'w50'),
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "char(1) NOT NULL default ''"
-		)
-	)
-);
+		]
+	]
+];
 
 
 /**
@@ -291,7 +291,7 @@ class tl_calendar extends Backend
 		// Set root IDs
 		if (!is_array($this->User->calendars) || empty($this->User->calendars))
 		{
-			$root = array(0);
+			$root = [0];
 		}
 		else
 		{
@@ -383,7 +383,7 @@ class tl_calendar extends Backend
 				$session = $this->Session->getData();
 				if (Input::get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'calendarp'))
 				{
-					$session['CURRENT']['IDS'] = array();
+					$session['CURRENT']['IDS'] = [];
 				}
 				else
 				{

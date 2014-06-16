@@ -41,7 +41,7 @@ class CalendarEventsModel extends Model
 	 *
 	 * @return Model|null The model or null if there is no event
 	 */
-	public static function findPublishedByParentAndIdOrAlias($varId, $arrPids, array $arrOptions=array())
+	public static function findPublishedByParentAndIdOrAlias($varId, $arrPids, array $arrOptions=[])
 	{
 		if (!is_array($arrPids) || empty($arrPids))
 		{
@@ -49,7 +49,7 @@ class CalendarEventsModel extends Model
 		}
 
 		$t = static::$strTable;
-		$arrColumns = array("($t.id=? OR $t.alias=?) AND $t.pid IN(" . implode(',', array_map('intval', $arrPids)) . ")");
+		$arrColumns = ["($t.id=? OR $t.alias=?) AND $t.pid IN(" . implode(',', array_map('intval', $arrPids)) . ")"];
 
 		if (!BE_USER_LOGGED_IN)
 		{
@@ -57,7 +57,7 @@ class CalendarEventsModel extends Model
 			$arrColumns[] = "($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time) AND $t.published=1";
 		}
 
-		return static::findOneBy($arrColumns, array((is_numeric($varId) ? $varId : 0), $varId), $arrOptions);
+		return static::findOneBy($arrColumns, [(is_numeric($varId) ? $varId : 0), $varId], $arrOptions);
 	}
 
 
@@ -71,13 +71,13 @@ class CalendarEventsModel extends Model
 	 *
 	 * @return Collection|null A collection of models or null if there are no events
 	 */
-	public static function findCurrentByPid($intPid, $intStart, $intEnd, array $arrOptions=array())
+	public static function findCurrentByPid($intPid, $intStart, $intEnd, array $arrOptions=[])
 	{
 		$t = static::$strTable;
 		$intStart = intval($intStart);
 		$intEnd = intval($intEnd);
 
-		$arrColumns = array("$t.pid=? AND (($t.startTime>=$intStart AND $t.startTime<=$intEnd) OR ($t.endTime>=$intStart AND $t.endTime<=$intEnd) OR ($t.startTime<=$intStart AND $t.endTime>=$intEnd) OR ($t.recurring=1 AND ($t.recurrences=0 OR $t.repeatEnd>=$intStart) AND $t.startTime<=$intEnd))");
+		$arrColumns = ["$t.pid=? AND (($t.startTime>=$intStart AND $t.startTime<=$intEnd) OR ($t.endTime>=$intStart AND $t.endTime<=$intEnd) OR ($t.startTime<=$intStart AND $t.endTime>=$intEnd) OR ($t.recurring=1 AND ($t.recurrences=0 OR $t.repeatEnd>=$intStart) AND $t.startTime<=$intEnd))"];
 
 		if (!BE_USER_LOGGED_IN)
 		{
@@ -102,10 +102,10 @@ class CalendarEventsModel extends Model
 	 *
 	 * @return Collection|null A collection of models or null if there are no events
 	 */
-	public static function findPublishedDefaultByPid($intPid, array $arrOptions=array())
+	public static function findPublishedDefaultByPid($intPid, array $arrOptions=[])
 	{
 		$t = static::$strTable;
-		$arrColumns = array("$t.pid=? AND $t.source='default'");
+		$arrColumns = ["$t.pid=? AND $t.source='default'"];
 
 		if (!BE_USER_LOGGED_IN)
 		{
@@ -131,7 +131,7 @@ class CalendarEventsModel extends Model
 	 *
 	 * @return Collection|null A collection of models or null if there are no events
 	 */
-	public static function findUpcomingByPids($arrIds, $intLimit=0, array $arrOptions=array())
+	public static function findUpcomingByPids($arrIds, $intLimit=0, array $arrOptions=[])
 	{
 		if (!is_array($arrIds) || empty($arrIds))
 		{
@@ -142,7 +142,7 @@ class CalendarEventsModel extends Model
 		$t = static::$strTable;
 
 		// Get upcoming events using endTime instead of startTime (see #3917)
-		$arrColumns = array("($t.endTime>=$time OR ($t.recurring=1 AND ($t.recurrences=0 OR $t.repeatEnd>=$time))) AND $t.pid IN(" . implode(',', array_map('intval', $arrIds)) . ") AND ($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time) AND $t.published=1");
+		$arrColumns = ["($t.endTime>=$time OR ($t.recurring=1 AND ($t.recurrences=0 OR $t.repeatEnd>=$time))) AND $t.pid IN(" . implode(',', array_map('intval', $arrIds)) . ") AND ($t.start='' OR $t.start<$time) AND ($t.stop='' OR $t.stop>$time) AND $t.published=1"];
 
 		if ($intLimit > 0)
 		{

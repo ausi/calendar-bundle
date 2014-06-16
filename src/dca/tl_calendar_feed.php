@@ -14,200 +14,200 @@
 /**
  * Table tl_calendar_feed
  */
-$GLOBALS['TL_DCA']['tl_calendar_feed'] = array
-(
+$GLOBALS['TL_DCA']['tl_calendar_feed'] =
+[
 
 	// Config
-	'config' => array
-	(
+	'config' =>
+	[
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
-		'onload_callback' => array
-		(
-			array('tl_calendar_feed', 'checkPermission'),
-			array('tl_calendar_feed', 'generateFeed')
-		),
-		'onsubmit_callback' => array
-		(
-			array('tl_calendar_feed', 'scheduleUpdate')
-		),
-		'sql' => array
-		(
-			'keys' => array
-			(
+		'onload_callback' =>
+		[
+			['tl_calendar_feed', 'checkPermission'],
+			['tl_calendar_feed', 'generateFeed']
+		],
+		'onsubmit_callback' =>
+		[
+			['tl_calendar_feed', 'scheduleUpdate']
+		],
+		'sql' =>
+		[
+			'keys' =>
+			[
 				'id' => 'primary',
 				'alias' => 'index'
-			)
-		),
+			]
+		],
 		'backlink'                    => 'do=calendar'
-	),
+	],
 
 	// List
-	'list' => array
-	(
-		'sorting' => array
-		(
+	'list' =>
+	[
+		'sorting' =>
+		[
 			'mode'                    => 1,
-			'fields'                  => array('title'),
+			'fields'                  => ['title'],
 			'flag'                    => 1,
 			'panelLayout'             => 'filter;search,limit'
-		),
-		'label' => array
-		(
-			'fields'                  => array('title'),
+		],
+		'label' =>
+		[
+			'fields'                  => ['title'],
 			'format'                  => '%s'
-		),
-		'global_operations' => array
-		(
-			'all' => array
-			(
+		],
+		'global_operations' =>
+		[
+			'all' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
 				'href'                => 'act=select',
 				'class'               => 'header_edit_all',
 				'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="e"'
-			),
-		),
-		'operations' => array
-		(
-			'edit' => array
-			(
+			],
+		],
+		'operations' =>
+		[
+			'edit' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar_feed']['edit'],
 				'href'                => 'act=edit',
 				'icon'                => 'edit.gif'
-			),
-			'copy' => array
-			(
+			],
+			'copy' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar_feed']['copy'],
 				'href'                => 'act=copy',
 				'icon'                => 'copy.gif'
-			),
-			'delete' => array
-			(
+			],
+			'delete' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar_feed']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
-			),
-			'show' => array
-			(
+			],
+			'show' =>
+			[
 				'label'               => &$GLOBALS['TL_LANG']['tl_calendar_feed']['show'],
 				'href'                => 'act=show',
 				'icon'                => 'show.gif'
-			)
-		)
-	),
+			]
+		]
+	],
 
 	// Palettes
-	'palettes' => array
-	(
+	'palettes' =>
+	[
 		'default'                     => '{title_legend},title,alias,language;{calendars_legend},calendars;{config_legend},format,source,maxItems,feedBase,description'
-	),
+	],
 
 	// Fields
-	'fields' => array
-	(
-		'id' => array
-		(
+	'fields' =>
+	[
+		'id' =>
+		[
 			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
-		),
-		'tstamp' => array
-		(
+		],
+		'tstamp' =>
+		[
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
-		),
-		'title' => array
-		(
+		],
+		'title' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['title'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255),
+			'eval'                    => ['mandatory'=>true, 'maxlength'=>255],
 			'sql'                     => "varchar(255) NOT NULL default ''"
-		),
-		'alias' => array
-		(
+		],
+		'alias' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['alias'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'rgxp'=>'alias', 'unique'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
-			'save_callback' => array
-			(
-				array('tl_calendar_feed', 'checkFeedAlias')
-			),
+			'eval'                    => ['mandatory'=>true, 'rgxp'=>'alias', 'unique'=>true, 'maxlength'=>128, 'tl_class'=>'w50'],
+			'save_callback' =>
+			[
+				['tl_calendar_feed', 'checkFeedAlias']
+			],
 			'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
-		),
-		'language' => array
-		(
+		],
+		'language' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['language'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'filter'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50'),
+			'eval'                    => ['mandatory'=>true, 'maxlength'=>32, 'tl_class'=>'w50'],
 			'sql'                     => "varchar(32) NOT NULL default ''"
-		),
-		'calendars' => array
-		(
+		],
+		'calendars' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['calendars'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'checkbox',
-			'options_callback'        => array('tl_calendar_feed', 'getAllowedCalendars'),
-			'eval'                    => array('multiple'=>true, 'mandatory'=>true),
+			'options_callback'        => ['tl_calendar_feed', 'getAllowedCalendars'],
+			'eval'                    => ['multiple'=>true, 'mandatory'=>true],
 			'sql'                     => "blob NULL"
-		),
-		'format' => array
-		(
+		],
+		'format' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['format'],
 			'default'                 => 'rss',
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'select',
-			'options'                 => array('rss'=>'RSS 2.0', 'atom'=>'Atom'),
-			'eval'                    => array('tl_class'=>'w50'),
+			'options'                 => ['rss'=>'RSS 2.0', 'atom'=>'Atom'],
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "varchar(32) NOT NULL default ''"
-		),
-		'source' => array
-		(
+		],
+		'source' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['source'],
 			'default'                 => 'source_teaser',
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'                 => array('source_teaser', 'source_text'),
+			'options'                 => ['source_teaser', 'source_text'],
 			'reference'               => &$GLOBALS['TL_LANG']['tl_calendar_feed'],
-			'eval'                    => array('tl_class'=>'w50'),
+			'eval'                    => ['tl_class'=>'w50'],
 			'sql'                     => "varchar(32) NOT NULL default ''"
-		),
-		'maxItems' => array
-		(
+		],
+		'maxItems' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['maxItems'],
 			'default'                 => 25,
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'),
+			'eval'                    => ['mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'],
 			'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
-		),
-		'feedBase' => array
-		(
+		],
+		'feedBase' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['feedBase'],
 			'default'                 => Environment::get('base'),
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('trailingSlash'=>true, 'rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+			'eval'                    => ['trailingSlash'=>true, 'rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'tl_class'=>'w50'],
 			'sql'                     => "varchar(255) NOT NULL default ''"
-		),
-		'description' => array
-		(
+		],
+		'description' =>
+		[
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_feed']['description'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('style'=>'height:60px', 'tl_class'=>'clr'),
+			'eval'                    => ['style'=>'height:60px', 'tl_class'=>'clr'],
 			'sql'                     => "text NULL"
-		)
-	)
-);
+		]
+	]
+];
 
 
 /**
@@ -244,7 +244,7 @@ class tl_calendar_feed extends Backend
 		// Set the root IDs
 		if (!is_array($this->User->calendarfeeds) || empty($this->User->calendarfeeds))
 		{
-			$root = array(0);
+			$root = [0];
 		}
 		else
 		{
@@ -336,7 +336,7 @@ class tl_calendar_feed extends Backend
 				$session = $this->Session->getData();
 				if (Input::get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'calendarfeedp'))
 				{
-					$session['CURRENT']['IDS'] = array();
+					$session['CURRENT']['IDS'] = [];
 				}
 				else
 				{
@@ -419,7 +419,7 @@ class tl_calendar_feed extends Backend
 			$objCalendar = CalendarModel::findMultipleByIds($this->User->calendars);
 		}
 
-		$return = array();
+		$return = [];
 
 		if ($objCalendar !== null)
 		{

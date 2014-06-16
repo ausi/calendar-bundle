@@ -76,7 +76,7 @@ class ModuleEventMenu extends ModuleCalendar
 	 */
 	protected function compileYearlyMenu()
 	{
-		$arrData = array();
+		$arrData = [];
 
 		$this->Template = new FrontendTemplate('mod_eventmenu_year');
 		$arrAllEvents = $this->getAllEvents($this->cal_calendar, 0, 2145913200);
@@ -92,7 +92,7 @@ class ModuleEventMenu extends ModuleCalendar
 		// Sort data
 		($this->cal_order == 'ascending') ? ksort($arrData) : krsort($arrData);
 
-		$arrItems = array();
+		$arrItems = [];
 		$count = 0;
 		$limit = count($arrData);
 		$strUrl = Environment::get('request');
@@ -128,7 +128,7 @@ class ModuleEventMenu extends ModuleCalendar
 	 */
 	protected function compileMonthlyMenu()
 	{
-		$arrData = array();
+		$arrData = [];
 
 		$this->Template = new FrontendTemplate('mod_eventmenu');
 		$arrAllEvents = $this->getAllEvents($this->cal_calendar, 0, 2145913200);
@@ -149,7 +149,7 @@ class ModuleEventMenu extends ModuleCalendar
 
 		($this->cal_order == 'ascending') ? ksort($arrData) : krsort($arrData);
 
-		$arrItems = array();
+		$arrItems = [];
 		$strUrl = Environment::get('request');
 
 		// Get the current "jumpTo" page

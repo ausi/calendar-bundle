@@ -14,8 +14,8 @@
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(array
-(
+TemplateLoader::addFiles(
+[
 	'cal_default'        => 'system/modules/calendar/templates/calendar',
 	'cal_mini'           => 'system/modules/calendar/templates/calendar',
 	'event_full'         => 'system/modules/calendar/templates/events',
@@ -27,4 +27,4 @@ TemplateLoader::addFiles(array
 	'mod_eventlist'      => 'system/modules/calendar/templates/modules',
 	'mod_eventmenu'      => 'system/modules/calendar/templates/modules',
 	'mod_eventmenu_year' => 'system/modules/calendar/templates/modules',
-));
+]);

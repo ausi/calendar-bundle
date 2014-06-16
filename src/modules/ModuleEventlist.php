@@ -107,7 +107,7 @@ class ModuleEventlist extends Events
 			$blnClearInput = true;
 		}
 
-		$blnDynamicFormat = (!$this->cal_ignoreDynamic && in_array($this->cal_format, array('cal_day', 'cal_month', 'cal_year')));
+		$blnDynamicFormat = (!$this->cal_ignoreDynamic && in_array($this->cal_format, ['cal_day', 'cal_month', 'cal_year']));
 
 		// Display year
 		if ($blnDynamicFormat && $intYear)
@@ -154,7 +154,7 @@ class ModuleEventlist extends Events
 			$sort($arrAllEvents[$key]);
 		}
 
-		$arrEvents = array();
+		$arrEvents = [];
 		$dateBegin = date('Ymd', $strBegin);
 		$dateEnd = date('Ymd', $strEnd);
 
@@ -321,7 +321,7 @@ class ModuleEventlist extends Events
 				}
 			}
 
-			$objTemplate->enclosure = array();
+			$objTemplate->enclosure = [];
 
 			// Add enclosure
 			if ($event['addEnclosure'])

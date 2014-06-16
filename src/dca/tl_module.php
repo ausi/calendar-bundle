@@ -23,122 +23,122 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['eventmenu']   = '{title_legend},nam
 /**
  * Add fields to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_calendar'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_calendar'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_calendar'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'options_callback'        => array('tl_module_calendar', 'getCalendars'),
-	'eval'                    => array('mandatory'=>true, 'multiple'=>true),
+	'options_callback'        => ['tl_module_calendar', 'getCalendars'],
+	'eval'                    => ['mandatory'=>true, 'multiple'=>true],
 	'sql'                     => "blob NULL"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_noSpan'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_noSpan'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_noSpan'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'sql'                     => "char(1) NOT NULL default ''"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_startDay'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_startDay'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_startDay'],
 	'default'                 => 1,
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options'                 => array(0, 1, 2, 3, 4, 5, 6),
+	'options'                 => [0, 1, 2, 3, 4, 5, 6],
 	'reference'               => &$GLOBALS['TL_LANG']['DAYS'],
-	'eval'                    => array('tl_class'=>'w50'),
+	'eval'                    => ['tl_class'=>'w50'],
 	'sql'                     => "smallint(5) unsigned NOT NULL default '1'"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_format'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_format'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_format'],
 	'default'                 => 'cal_month',
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_calendar', 'getFormats'),
+	'options_callback'        => ['tl_module_calendar', 'getFormats'],
 	'reference'               => &$GLOBALS['TL_LANG']['tl_module'],
-	'eval'                    => array('tl_class'=>'w50'),
-	'wizard' => array
-	(
-		array('tl_module_calendar', 'hideStartDay')
-	),
+	'eval'                    => ['tl_class'=>'w50'],
+	'wizard' =>
+	[
+		['tl_module_calendar', 'hideStartDay']
+	],
 	'sql'                     => "varchar(32) NOT NULL default ''"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_ignoreDynamic'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_ignoreDynamic'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_ignoreDynamic'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'w50 m12'),
+	'eval'                    => ['tl_class'=>'w50 m12'],
 	'sql'                     => "char(1) NOT NULL default ''"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_order'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_order'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_order'],
 	'default'                 => 'ascending',
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options'                 => array('ascending', 'descending'),
+	'options'                 => ['ascending', 'descending'],
 	'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-	'eval'                    => array('tl_class'=>'w50'),
+	'eval'                    => ['tl_class'=>'w50'],
 	'sql'                     => "varchar(32) NOT NULL default ''"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_readerModule'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_readerModule'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_readerModule'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_calendar', 'getReaderModules'),
+	'options_callback'        => ['tl_module_calendar', 'getReaderModules'],
 	'reference'               => &$GLOBALS['TL_LANG']['tl_module'],
-	'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
+	'eval'                    => ['includeBlankOption'=>true, 'tl_class'=>'w50'],
 	'sql'                     => "int(10) unsigned NOT NULL default '0'"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_limit'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_limit'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_limit'],
 	'exclude'                 => true,
 	'inputType'               => 'text',
-	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
+	'eval'                    => ['rgxp'=>'digit', 'tl_class'=>'w50'],
 	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_template'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_template'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_template'],
 	'default'                 => 'event_full',
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_calendar', 'getEventTemplates'),
-	'eval'                    => array('tl_class'=>'w50'),
+	'options_callback'        => ['tl_module_calendar', 'getEventTemplates'],
+	'eval'                    => ['tl_class'=>'w50'],
 	'sql'                     => "varchar(32) NOT NULL default ''"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_ctemplate'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_ctemplate'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_ctemplate'],
 	'default'                 => 'cal_default',
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_calendar', 'getCalendarTemplates'),
-	'eval'                    => array('tl_class'=>'w50'),
+	'options_callback'        => ['tl_module_calendar', 'getCalendarTemplates'],
+	'eval'                    => ['tl_class'=>'w50'],
 	'sql'                     => "varchar(32) NOT NULL default ''"
-);
+];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['cal_showQuantity'] = array
-(
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_showQuantity'] =
+[
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cal_showQuantity'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'sql'                     => "char(1) NOT NULL default ''"
-);
+];
 
 
 /**
@@ -179,10 +179,10 @@ class tl_module_calendar extends Backend
 	{
 		if (!$this->User->isAdmin && !is_array($this->User->calendars))
 		{
-			return array();
+			return [];
 		}
 
-		$arrCalendars = array();
+		$arrCalendars = [];
 		$objCalendars = $this->Database->execute("SELECT id, title FROM tl_calendar ORDER BY title");
 
 		while ($objCalendars->next())
@@ -203,7 +203,7 @@ class tl_module_calendar extends Backend
 	 */
 	public function getReaderModules()
 	{
-		$arrModules = array();
+		$arrModules = [];
 		$objModules = $this->Database->execute("SELECT m.id, m.name, t.name AS theme FROM tl_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE m.type='eventreader' ORDER BY t.name, m.name");
 
 		while ($objModules->next())
@@ -224,15 +224,15 @@ class tl_module_calendar extends Backend
 	{
 		if ($dc->activeRecord->type == 'eventmenu')
 		{
-			return array('cal_day', 'cal_month', 'cal_year');
+			return ['cal_day', 'cal_month', 'cal_year'];
 		}
 
-		return array
-		(
-			'cal_list'     => array('cal_day', 'cal_month', 'cal_year', 'cal_all'),
-			'cal_upcoming' => array('next_7', 'next_14', 'next_30', 'next_90', 'next_180', 'next_365', 'next_two', 'next_cur_month', 'next_cur_year', 'next_next_month', 'next_next_year', 'next_all'),
-			'cal_past'     => array('past_7', 'past_14', 'past_30', 'past_90', 'past_180', 'past_365', 'past_two', 'past_cur_month', 'past_cur_year', 'past_prev_month', 'past_prev_year', 'past_all')
-		);
+		return
+		[
+			'cal_list'     => ['cal_day', 'cal_month', 'cal_year', 'cal_all'],
+			'cal_upcoming' => ['next_7', 'next_14', 'next_30', 'next_90', 'next_180', 'next_365', 'next_two', 'next_cur_month', 'next_cur_year', 'next_next_month', 'next_next_year', 'next_all'],
+			'cal_past'     => ['past_7', 'past_14', 'past_30', 'past_90', 'past_180', 'past_365', 'past_two', 'past_cur_month', 'past_cur_year', 'past_prev_month', 'past_prev_year', 'past_all']
+		];
 	}
 
 

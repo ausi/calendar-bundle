@@ -228,7 +228,7 @@ class ModuleEventReader extends Events
 			}
 		}
 
-		$objTemplate->enclosure = array();
+		$objTemplate->enclosure = [];
 
 		// Add enclosures
 		if ($objEvent->addEnclosure)
@@ -259,7 +259,7 @@ class ModuleEventReader extends Events
 		$this->Template->hlc = 'h' . ($intHl + 1);
 
 		$this->import('Comments');
-		$arrNotifies = array();
+		$arrNotifies = [];
 
 		// Notify the system administrator
 		if ($objCalendar->notify != 'notify_author')

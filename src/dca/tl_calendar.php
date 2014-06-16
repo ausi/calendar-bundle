@@ -434,9 +434,9 @@ class tl_calendar extends Backend
 	 *
 	 * This method is triggered when a single calendar or multiple calendars
 	 * are modified (edit/editAll).
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 */
-	public function scheduleUpdate(DataContainer $dc)
+	public function scheduleUpdate(Contao\DataContainer $dc)
 	{
 		// Return if there is no ID
 		if (!$dc->id)

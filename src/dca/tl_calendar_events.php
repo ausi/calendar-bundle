@@ -649,11 +649,11 @@ class tl_calendar_events extends Backend
 	/**
 	 * Auto-generate the event alias if it has not been set yet
 	 * @param mixed
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 * @return mixed
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	public function generateAlias($varValue, DataContainer $dc)
+	public function generateAlias($varValue, Contao\DataContainer $dc)
 	{
 		$autoAlias = false;
 
@@ -686,10 +686,10 @@ class tl_calendar_events extends Backend
 	/**
 	 * Automatically set the end time if not set
 	 * @param mixed
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 * @return string
 	 */
-	public function setEmptyEndTime($varValue, DataContainer $dc)
+	public function setEmptyEndTime($varValue, Contao\DataContainer $dc)
 	{
 		if ($varValue === '')
 		{
@@ -762,10 +762,10 @@ class tl_calendar_events extends Backend
 
 	/**
 	 * Get all articles and return them as array
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 * @return array
 	 */
-	public function getArticleAlias(DataContainer $dc)
+	public function getArticleAlias(Contao\DataContainer $dc)
 	{
 		$arrPids = array();
 		$arrAlias = array();
@@ -808,10 +808,10 @@ class tl_calendar_events extends Backend
 
 	/**
 	 * Add the source options depending on the allowed fields (see #5498)
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 * @return array
 	 */
-	public function getSourceOptions(DataContainer $dc)
+	public function getSourceOptions(Contao\DataContainer $dc)
 	{
 		if ($this->User->isAdmin)
 		{
@@ -851,9 +851,9 @@ class tl_calendar_events extends Backend
 
 	/**
 	 * Adjust start end end time of the event based on date, span, startTime and endTime
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 */
-	public function adjustTime(DataContainer $dc)
+	public function adjustTime(Contao\DataContainer $dc)
 	{
 		// Return if there is no active record (override all)
 		if (!$dc->activeRecord)
@@ -951,9 +951,9 @@ class tl_calendar_events extends Backend
 	 * modified (edit/editAll), moved (cut/cutAll) or deleted (delete/deleteAll).
 	 * Since duplicated events are unpublished by default, it is not necessary
 	 * to schedule updates on copyAll as well.
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 */
-	public function scheduleUpdate(DataContainer $dc)
+	public function scheduleUpdate(Contao\DataContainer $dc)
 	{
 		// Return if there is no ID
 		if (!$dc->activeRecord || !$dc->activeRecord->pid || Input::get('act') == 'copy')
@@ -970,10 +970,10 @@ class tl_calendar_events extends Backend
 
 	/**
 	 * Return the link picker wizard
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 * @return string
 	 */
-	public function pagePicker(DataContainer $dc)
+	public function pagePicker(Contao\DataContainer $dc)
 	{
 		return ' <a href="contao/page.php?do='.Input::get('do').'&amp;table='.$dc->table.'&amp;field='.$dc->field.'&amp;value='.str_replace(array('{{link_url::', '}}'), '', $dc->value).'" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['pagepicker']).'" onclick="Backend.getScrollOffset();Backend.openModalSelector({\'width\':768,\'title\':\''.specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['MOD']['page'][0])).'\',\'url\':this.href,\'id\':\''.$dc->field.'\',\'tag\':\'ctrl_'.$dc->field . ((Input::get('act') == 'editAll') ? '_' . $dc->id : '').'\',\'self\':this});return false">' . Image::getHtml('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top;cursor:pointer"') . '</a>';
 	}

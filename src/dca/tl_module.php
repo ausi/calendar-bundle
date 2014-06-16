@@ -217,10 +217,10 @@ class tl_module_calendar extends Backend
 
 	/**
 	 * Return the calendar formats depending on the module type
-	 * @param \DataContainer
+	 * @param Contao\DataContainer
 	 * @return array
 	 */
-	public function getFormats(DataContainer $dc)
+	public function getFormats(Contao\DataContainer $dc)
 	{
 		if ($dc->activeRecord->type == 'eventmenu')
 		{

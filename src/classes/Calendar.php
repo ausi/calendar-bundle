@@ -318,7 +318,7 @@ class Calendar extends Frontend
 					}
 
 					// Set the domain (see #6421)
-					$domain = ($objParent->rootUseSSL ? 'https://' : 'http://') . ($objParent->domain ?: Environment::get('host')) . TL_PATH . '/';
+					$domain = ($objParent->rootUseSSL ? 'https://' : 'http://') . ($objParent->domain ?: Environment::get('host')) . Environment::get('path') . '/';
 
 					// Generate the URL
 					$arrProcessed[$objCalendar->jumpTo] = $domain . $this->generateFrontendUrl($objParent->row(), ((Config::get('useAutoItem') && !Config::get('disableAlias')) ?  '/%s' : '/events/%s'), $objParent->language);

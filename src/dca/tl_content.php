@@ -120,10 +120,10 @@ class tl_content_calendar extends Backend
 
 	/**
 	 * Check access to a particular content element
-	 * @param integer
+	 * @param int
 	 * @param array
-	 * @param boolean
-	 * @return boolean
+	 * @param bool
+	 * @return bool
 	 */
 	protected function checkAccessToElement($id, $root, $blnIsPid=false)
 	{

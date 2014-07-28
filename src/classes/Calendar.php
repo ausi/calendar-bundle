@@ -35,8 +35,8 @@ class Calendar extends Frontend
 
 	/**
 	 * Update a particular RSS feed
-	 * @param integer
-	 * @param boolean
+	 * @param int
+	 * @param bool
 	 */
 	public function generateFeed($intId, $blnIsFeedId=false)
 	{
@@ -258,8 +258,8 @@ class Calendar extends Frontend
 	/**
 	 * Add events to the indexer
 	 * @param array
-	 * @param integer
-	 * @param boolean
+	 * @param int
+	 * @param bool
 	 * @return array
 	 */
 	public function getSearchablePages($arrPages, $intRoot=0, $blnIsSitemap=false)
@@ -346,8 +346,8 @@ class Calendar extends Frontend
 	/**
 	 * Add an event to the array of active events
 	 * @param object
-	 * @param integer
-	 * @param integer
+	 * @param int
+	 * @param int
 	 * @param string
 	 * @param string
 	 */
@@ -463,9 +463,9 @@ class Calendar extends Frontend
 
 	/**
 	 * Calculate the span between two timestamps in days
-	 * @param integer
-	 * @param integer
-	 * @return integer
+	 * @param int
+	 * @param int
+	 * @return int
 	 */
 	public static function calculateSpan($intStart, $intEnd)
 	{
@@ -475,8 +475,8 @@ class Calendar extends Frontend
 
 	/**
 	 * Convert a UNIX timestamp to a Julian day
-	 * @param integer
-	 * @return integer
+	 * @param int
+	 * @return int
 	 */
 	public static function unixToJd($tstamp)
 	{

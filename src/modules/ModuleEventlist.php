@@ -26,7 +26,7 @@ class ModuleEventlist extends Events
 
 	/**
 	 * Current date object
-	 * @var integer
+	 * @var int
 	 */
 	protected $Date;
 

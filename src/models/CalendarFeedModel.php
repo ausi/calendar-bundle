@@ -35,8 +35,8 @@ class CalendarFeedModel extends Model
 	/**
 	 * Find all feeds which include a certain calendar
 	 *
-	 * @param integer $intId      The calendar ID
-	 * @param array   $arrOptions An optional options array
+	 * @param int   $intId      The calendar ID
+	 * @param array $arrOptions An optional options array
 	 *
 	 * @return Model|null The model or null if the calendar is not part of a feed
 	 */

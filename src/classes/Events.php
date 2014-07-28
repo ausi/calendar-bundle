@@ -95,8 +95,8 @@ abstract class Events extends Module
 	/**
 	 * Get all events of a certain period
 	 * @param array
-	 * @param integer
-	 * @param integer
+	 * @param int
+	 * @param int
 	 * @return array
 	 */
 	protected function getAllEvents($arrCalendars, $intStart, $intEnd)
@@ -191,12 +191,12 @@ abstract class Events extends Module
 	/**
 	 * Add an event to the array of active events
 	 * @param object
-	 * @param integer
-	 * @param integer
+	 * @param int
+	 * @param int
 	 * @param string
-	 * @param integer
-	 * @param integer
-	 * @param integer
+	 * @param int
+	 * @param int
+	 * @param int
 	 */
 	protected function addEvent($objEvents, $intStart, $intEnd, $strUrl, $intBegin, $intLimit, $intCalendar)
 	{

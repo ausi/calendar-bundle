@@ -64,10 +64,10 @@ class CalendarEventsModel extends Model
 	/**
 	 * Find events of the current period by their parent ID
 	 *
-	 * @param integer $intPid     The calendar ID
-	 * @param integer $intStart   The start date as Unix timestamp
-	 * @param integer $intEnd     The end date as Unix timestamp
-	 * @param array   $arrOptions An optional options array
+	 * @param int   $intPid     The calendar ID
+	 * @param int   $intStart   The start date as Unix timestamp
+	 * @param int   $intEnd     The end date as Unix timestamp
+	 * @param array $arrOptions An optional options array
 	 *
 	 * @return Collection|null A collection of models or null if there are no events
 	 */
@@ -97,8 +97,8 @@ class CalendarEventsModel extends Model
 	/**
 	 * Find published events with the default redirect target by their parent ID
 	 *
-	 * @param integer $intPid     The calendar ID
-	 * @param array   $arrOptions An optional options array
+	 * @param int   $intPid     The calendar ID
+	 * @param array $arrOptions An optional options array
 	 *
 	 * @return Collection|null A collection of models or null if there are no events
 	 */
@@ -125,9 +125,9 @@ class CalendarEventsModel extends Model
 	/**
 	 * Find upcoming events by their parent IDs
 	 *
-	 * @param array   $arrIds     An array of calendar IDs
-	 * @param integer $intLimit   An optional limit
-	 * @param array   $arrOptions An optional options array
+	 * @param array $arrIds     An array of calendar IDs
+	 * @param int   $intLimit   An optional limit
+	 * @param array $arrOptions An optional options array
 	 *
 	 * @return Collection|null A collection of models or null if there are no events
 	 */

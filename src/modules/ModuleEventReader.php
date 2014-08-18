@@ -12,8 +12,6 @@
 
 namespace Contao;
 
-use stdClass;
-
 
 /**
  * Class ModuleEventReader
@@ -276,7 +274,7 @@ class ModuleEventReader extends Events
 			}
 		}
 
-		$objConfig = new stdClass();
+		$objConfig = new \stdClass();
 
 		$objConfig->perPage = $objCalendar->perPage;
 		$objConfig->order = $objCalendar->sortOrder;

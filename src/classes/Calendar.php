@@ -12,8 +12,6 @@
 
 namespace Contao;
 
-use stdClass;
-
 
 /**
  * Class Calendar
@@ -363,7 +361,7 @@ class Calendar extends Frontend
 		// Called in the back end (see #4026)
 		if ($objPage === null)
 		{
-			$objPage = new stdClass();
+			$objPage = new \stdClass();
 			$objPage->dateFormat = Config::get('dateFormat');
 			$objPage->datimFormat = Config::get('datimFormat');
 			$objPage->timeFormat = Config::get('timeFormat');

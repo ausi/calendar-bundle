@@ -212,7 +212,7 @@ $GLOBALS['TL_DCA']['tl_calendar'] =
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar']['perPage'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => ['rgxp'=>'digit', 'tl_class'=>'w50'],
+			'eval'                    => ['rgxp'=>'natural', 'tl_class'=>'w50'],
 			'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
 		],
 		'moderate' =>

@@ -379,11 +379,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events'] =
 			'inputType'               => 'timePeriod',
 			'options'                 => ['days', 'weeks', 'months', 'years'],
 			'reference'               => &$GLOBALS['TL_LANG']['tl_calendar_events'],
-			'eval'                    => ['mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'],
-			'save_callback' =>
-			[
-				['tl_calendar_events', 'checkInterval']
-			],
+			'eval'                    => ['mandatory'=>true, 'rgxp'=>'natural', 'minval'=>1, 'tl_class'=>'w50'],
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		],
 		'repeatEnd' =>
@@ -396,7 +392,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events'] =
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_events']['recurrences'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => ['mandatory'=>true, 'rgxp'=>'digit', 'tl_class'=>'w50'],
+			'eval'                    => ['mandatory'=>true, 'rgxp'=>'natural', 'tl_class'=>'w50'],
 			'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
 		],
 		'addEnclosure' =>
@@ -714,24 +710,6 @@ class tl_calendar_events extends Backend
 		}
 
 		return $varValue;
-	}
-
-
-	/**
-	 * Check for a valid recurrence interval
-	 * @param mixed
-	 * @return mixed
-	 */
-	public function checkInterval($varValue)
-	{
-		$varValue = deserialize($varValue);
-
-		if ($varValue['value'] < 1)
-		{
-			$varValue['value'] = 1;
-		}
-
-		return serialize($varValue);
 	}
 
 

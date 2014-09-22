@@ -133,8 +133,8 @@ $GLOBALS['TL_DCA']['tl_calendar_events'] =
 	// Palettes
 	'palettes' =>
 	[
-		'__selector__'                => ['addTime', 'addImage', 'recurring', 'addEnclosure', 'source'],
-		'default'                     => '{title_legend},title,alias,author;{date_legend},addTime,startDate,endDate;{details_legend},location,teaser;{image_legend},addImage;{recurring_legend},recurring;{enclosure_legend:hide},addEnclosure;{source_legend:hide},source;{expert_legend:hide},cssClass,noComments;{publish_legend},published,start,stop'
+		'__selector__'                => ['addTime', 'addImage', 'recurring', 'addEnclosure', 'source', 'published'],
+		'default'                     => '{title_legend},title,alias,author;{date_legend},addTime,startDate,endDate;{details_legend},location,teaser;{image_legend},addImage;{recurring_legend},recurring;{enclosure_legend:hide},addEnclosure;{source_legend:hide},source;{expert_legend:hide},cssClass,noComments;{publish_legend},published'
 	],
 
 	// Subpalettes
@@ -146,7 +146,8 @@ $GLOBALS['TL_DCA']['tl_calendar_events'] =
 		'addEnclosure'                => 'enclosure',
 		'source_internal'             => 'jumpTo',
 		'source_article'              => 'articleId',
-		'source_external'             => 'url,target'
+		'source_external'             => 'url,target',
+		'published'                   => 'start,stop'
 	],
 
 	// Fields
@@ -483,7 +484,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events'] =
 			'filter'                  => true,
 			'flag'                    => 2,
 			'inputType'               => 'checkbox',
-			'eval'                    => ['doNotCopy'=>true],
+			'eval'                    => ['submitOnChange'=>true, 'doNotCopy'=>true],
 			'sql'                     => "char(1) NOT NULL default ''"
 		],
 		'start' =>

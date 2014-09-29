@@ -1,6 +1,6 @@
 {
 	"name": "contao/module-calendar",
-	"type": "contao-module",
+	"type": "library",
 	"description": "Contao 4 calendar module",
 	"license": "LGPL-3.0+",
 	"authors": [

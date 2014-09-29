@@ -409,7 +409,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events'] =
 			'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_events']['enclosure'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => ['multiple'=>true, 'fieldType'=>'checkbox', 'filesOnly'=>true, 'mandatory'=>true],
+			'eval'                    => ['multiple'=>true, 'fieldType'=>'checkbox', 'filesOnly'=>true, 'isDownloads'=>true, 'extensions'=>Config::get('allowedDownload'), 'mandatory'=>true],
 			'sql'                     => "blob NULL"
 		],
 		'source' =>

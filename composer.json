@@ -15,6 +15,9 @@
 		"contao/module-core": "dev-feature/symfony2"
 	},
 	"autoload": {
+        "psr-4": {
+            "Contao\\Bundle\\CalendarBundle\\": "src/"
+        },
 		"classmap": [
 			"src/Resources/classes/",
 			"src/Resources/models/",

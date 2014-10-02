@@ -19,7 +19,7 @@ array_insert($GLOBALS['BE_MOD']['content'], 1,
 	'calendar' =>
 	[
 		'tables'      => ['tl_calendar', 'tl_calendar_events', 'tl_calendar_feed', 'tl_content'],
-		'icon'        => 'system/modules/calendar/assets/icon.gif',
+		'icon'        => 'vendor/contao/module-calendar/src/Resources/assets/icon.gif',
 		'table'       => ['TableWizard', 'importTable'],
 		'list'        => ['ListWizard', 'importList']
 	]

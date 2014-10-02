@@ -16,16 +16,9 @@
 	},
 	"autoload": {
 		"classmap": [
-			"src/classes/",
-			"src/models/",
-			"src/modules/"
+			"src/Resources/classes/",
+			"src/Resources/models/",
+			"src/Resources/modules/"
 		]
-	},
-	"extra": {
-		"contao": {
-			"sources": {
-				"src": "system/modules/calendar"
-			}
-		}
 	}
 }

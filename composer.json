@@ -12,7 +12,8 @@
 	"require": {
 		"php": ">=5.4.0",
 		"contao/contao-library": "dev-feature/symfony2",
-		"contao/module-core": "dev-feature/symfony2"
+		"contao/module-core": "dev-feature/symfony2",
+        "symfony/framework-bundle": "~2.5"
 	},
 	"autoload": {
         "psr-4": {

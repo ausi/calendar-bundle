@@ -1,13 +1,9 @@
 {
-    "require": [
-        "ContaoCoreBundle"
-    ],
-    "replace": [
-        "calendar"
-    ],
     "bundles": {
         "Contao\\Bundle\\CalendarBundle\\ContaoCalendarBundle": {
-            "environments": ["all"]
+            "replace": ["calendar"],
+            "environments": ["all"],
+            "load-after": ["ContaoCoreBundle"]
         }
     }
 }

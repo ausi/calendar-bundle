@@ -20,9 +20,9 @@
             "Contao\\Bundle\\CalendarBundle\\": "src/"
         },
 		"classmap": [
-			"src/Resources/classes/",
-			"src/Resources/models/",
-			"src/Resources/modules/"
+			"legacy/classes/",
+			"legacy/models/",
+			"legacy/modules/"
 		]
 	}
 }

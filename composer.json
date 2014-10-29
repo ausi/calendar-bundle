@@ -1,28 +1,27 @@
 {
-	"name": "contao/module-calendar",
-	"type": "library",
-	"description": "Contao 4 calendar module",
-	"license": "LGPL-3.0+",
-	"authors": [
-		{
-			"name": "Leo Feyer",
-			"homepage": "https://github.com/leofeyer"
-		}
-	],
-	"require": {
-		"php": ">=5.4.0",
-		"contao/contao-library": "dev-feature/symfony2",
-		"contao/module-core": "dev-feature/symfony2",
-        "symfony/framework-bundle": "~2.5"
-	},
-	"autoload": {
+    "name": "contao/module-calendar",
+    "type": "library",
+    "description": "Contao 4 calendar module",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Leo Feyer",
+            "homepage": "https://github.com/leofeyer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/framework-bundle": "~2.5",
+        "contao/module-core": "dev-feature/symfony2"
+    },
+    "autoload": {
         "psr-4": {
             "Contao\\CalendarBundle\\": "src/"
         },
-		"classmap": [
-			"contao/classes/",
-			"contao/models/",
-			"contao/modules/"
-		]
-	}
+        "classmap": [
+            "contao/classes/",
+            "contao/models/",
+            "contao/modules/"
+        ]
+    }
 }

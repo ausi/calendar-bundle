@@ -9,9 +9,9 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-namespace Contao\Bundle\CalendarBundle;
+namespace Contao\CalendarBundle;
 
-use Contao\Bundle\CoreBundle\HttpKernel\Bundle\ContaoBundle;
+use Contao\CoreBundle\HttpKernel\Bundle\ContaoBundle;
 
 class ContaoCalendarBundle extends ContaoBundle
 {

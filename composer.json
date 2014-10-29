@@ -17,12 +17,12 @@
 	},
 	"autoload": {
         "psr-4": {
-            "Contao\\Bundle\\CalendarBundle\\": "src/"
+            "Contao\\CalendarBundle\\": "src/"
         },
 		"classmap": [
-			"legacy/classes/",
-			"legacy/models/",
-			"legacy/modules/"
+			"contao/classes/",
+			"contao/models/",
+			"contao/modules/"
 		]
 	}
 }
